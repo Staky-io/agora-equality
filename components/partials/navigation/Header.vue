@@ -207,7 +207,7 @@ const unwatch = watch(isLoggedIn, async (value) => {
   if (value) {
     try {
       const infos = await SCORECallReadOnly<{ _address: string, _id: string, _type: string }>('governanceTokenInfo')
-      usersToken.value = parseInt((await SCORECallReadOnly<string>('balanceOf', { _owner: address.value, ...infos._type === 'irc-31' && { _id: infos._id } }, infos._address)), 16) / (10 ** 18)
+      usersToken.value = parseInt((await SCORECallReadOnly<string>('balanceOf', { addr: address.value, ...infos._type === 'irc-31' && { _id: infos._id } }, infos._address)), 16) / (10 ** 18)
       unwatch()
     } catch (error) {
       usersToken.value = -1
